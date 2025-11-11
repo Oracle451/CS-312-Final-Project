@@ -6,10 +6,9 @@ import TaskItem from "../components/TaskItem"
 function Tasks() {
   return (
     <div className="dashboard-container">
-      <Sidebar />
       <div className="dashboard-main">
-        <Header title="All Tasks" />
         <div style={{ padding: "20px" }}>
+          <h2>Tasks: 138</h2>
           <p>All Tasks:</p>
           <TaskItem />
         </div>

@@ -6,7 +6,6 @@ function Header({ title }) {
     <header className="header">
       <h1>{title}</h1>
       <div className="header-user">
-        <img src="https://via.placeholder.com/32" alt="User" />
         <span>Welcome, User</span>
       </div>
     </header>
