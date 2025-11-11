@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import TaskItem from "../components/TaskItem"
 
 function Tasks() {
   return (
@@ -9,7 +10,8 @@ function Tasks() {
       <div className="dashboard-main">
         <Header title="All Tasks" />
         <div style={{ padding: "20px" }}>
-          <p>This will show the task list.</p>
+          <p>All Tasks:</p>
+          <TaskItem />
         </div>
       </div>
     </div>

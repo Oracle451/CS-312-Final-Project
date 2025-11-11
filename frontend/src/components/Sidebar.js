@@ -9,7 +9,9 @@ function Sidebar() {
       <ul className="sidebar-links">
         <li><Link to="/">Dashboard</Link></li>
         <li><Link to="/tasks">All Tasks</Link></li>
+        <li><Link to="/overdue">Overdue</Link></li>
         <li><Link to="/login">Login</Link></li>
+
       </ul>
     </div>
   );
