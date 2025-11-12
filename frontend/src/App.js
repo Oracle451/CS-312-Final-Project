@@ -6,8 +6,10 @@ import Dashboard from "./pages/Dashboard";
 import Tasks from "./pages/Tasks";
 import Login from "./pages/Login";
 import Overdue from "./pages/Overdue";
-import Signup from "./pages/Signup"; 
-import CreateTask from "./pages/CreateTask"; 
+import Signup from "./pages/Signup";
+import CreateTask from "./pages/CreateTask";
+import SearchResults from "./pages/SearchResults";
+import EditTask from "./pages/EditTask";
 import "./App.css";
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
               <Route path="/overdue" element={<Overdue />} />
               <Route path="/create-task" element={<CreateTask />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/search" element={<SearchResults />} />
+              <Route path="/tasks/:id" element={<EditTask />} />
             </Routes>
           </div>
         </div>

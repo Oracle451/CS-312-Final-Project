@@ -12,6 +12,16 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.get('/search', async (req, res) => {
+  const q = req.query.q;
+  try {
+    const results = await taskModel.searchTasksByTitle(q);
+    res.json(results);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Get all/filter/search tasks
 router.get('/', async (req, res) => {
   try {

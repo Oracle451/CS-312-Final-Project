@@ -1,4 +1,4 @@
-const db = require('./db');
+import db from './db.js';
 
 async function createTask(data) {
   const {
@@ -22,7 +22,7 @@ async function getTaskById(id) {
   return result.rows[0];
 }
 
-async function getAllTasks({ status, priority, due_date, sortBy, assigned_user_id } = {}) {
+async function getAllTasks({ status, priority, due_date, sortBy, assigned_user_id, q } = {}) {
   let query = `SELECT * FROM tasks`;
   const conditions = [];
   const values = [];
@@ -43,6 +43,11 @@ async function getAllTasks({ status, priority, due_date, sortBy, assigned_user_i
     values.push(assigned_user_id);
     conditions.push(`assigned_user_id = $${values.length}`);
   }
+  if (q) {
+    // case-insensitive partial match on title OR description
+    values.push(`%${q}%`);
+    conditions.push(`(title ILIKE $${values.length} OR description ILIKE $${values.length})`);
+  }
   if (conditions.length > 0) {
     query += ' WHERE ' + conditions.join(' AND ');
   }
@@ -55,25 +60,56 @@ async function getAllTasks({ status, priority, due_date, sortBy, assigned_user_i
 }
 
 async function updateTask(id, data) {
-  const keys = Object.keys(data);
-  if (!keys.length) return null;
-  const setString = keys.map((k, idx) => `${k} = $${idx + 1}`).join(', ');
+  const fields = [];
+  const values = [];
+  let idx = 1;
+  for (const key of ['title', 'description', 'due_date', 'priority', 'status', 'assigned_user_id', 'created_by']) {
+    if (data[key] !== undefined) {
+      fields.push(`${key} = $${idx}`);
+      values.push(data[key]);
+      idx++;
+    }
+  }
+  if (fields.length === 0) return getTaskById(id);
+  values.push(id);
   const result = await db.query(
-    `UPDATE tasks SET ${setString}, updated_at = CURRENT_TIMESTAMP WHERE id = $${keys.length + 1} RETURNING *`,
-    [...Object.values(data), id]
+    `UPDATE tasks SET ${fields.join(', ')} WHERE id = $${values.length} RETURNING *`,
+    values
   );
   return result.rows[0];
 }
 
 async function deleteTask(id) {
-  await db.query(`DELETE FROM tasks WHERE id = $1`, [id]);
-  return true;
+  const result = await db.query(
+    `DELETE FROM tasks WHERE id = $1 RETURNING *`,
+    [id]
+  );
+  return result.rows[0];
 }
 
-module.exports = {
+async function searchTasksByTitle(queryText) {
+  if (!queryText || queryText.trim() === "") return [];
+
+  try {
+    const result = await db.query(
+      `SELECT * 
+       FROM tasks 
+       WHERE title ILIKE $1 
+       ORDER BY created_at DESC`,
+      [`%${queryText}%`]
+    );
+    return result.rows;
+  } catch (err) {
+    console.error("Error searching tasks:", err);
+    throw err;
+  }
+}
+
+export {
   createTask,
   getTaskById,
   getAllTasks,
   updateTask,
   deleteTask,
+  searchTasksByTitle,
 };
