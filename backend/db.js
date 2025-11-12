@@ -18,3 +18,5 @@ export const db = new pg.Client({
 db.connect()
   .then(() => console.log("Connected to PostgreSQL"))
   .catch((err) => console.error("DB connection error:", err));
+
+export default db; 

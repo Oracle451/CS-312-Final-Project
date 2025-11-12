@@ -1,4 +1,4 @@
-const db = require('./db');
+import db from './db.js';
 
 // WARNING: Passwords should be hashed before saving in production!
 async function createUser({ username, full_name, password }) {
@@ -38,7 +38,7 @@ async function deleteUser(id) {
   return true;
 }
 
-module.exports = {
+export {
   createUser,
   getUserByUsername,
   getUserById,

@@ -25,7 +25,7 @@ function Signup() {
 
     try {
       // Send POST request to your Express backend
-      const response = await fetch("/api/users", { 
+      const response = await fetch("/api/users/signup", { 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
