@@ -20,5 +20,6 @@
   padding: 24px;
   background: #f6f6f9;
   overflow-y: auto;
+  height: auto;
 }
 
