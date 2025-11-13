@@ -12,6 +12,16 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+// Sign User in
+router.post('/signin', async (req, res) => {
+  try {
+    const user = await userModel.signInUser(req.body);
+    res.status(202).json(user);
+  } catch (err) {
+    res.status(401).json({ error: err.message });
+  }
+});
+
 // Get user by username
 router.get('/username/:username', async (req, res) => {
   const user = await userModel.getUserByUsername(req.params.username);
