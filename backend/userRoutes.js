@@ -1,6 +1,7 @@
 const express = require('express');
 const userModel = require('./user');
 const router = express.Router();
+let currentUser = "";
 
 // Create user
 router.post('/signup', async (req, res) => {
@@ -12,10 +13,15 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+router.get('/getCurrentUser', async (req, res) => {
+  res.json(currentUser);
+})
+
 // Sign User in
 router.post('/signin', async (req, res) => {
   try {
     const user = await userModel.signInUser(req.body);
+    currentUser = user;
     res.status(202).json(user);
   } catch (err) {
     res.status(401).json({ error: err.message });
