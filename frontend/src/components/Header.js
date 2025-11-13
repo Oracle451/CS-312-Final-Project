@@ -19,7 +19,7 @@ function Header({ title }) {
 
       const data = await response.json();
       console.log("I grabbed: ", data);
-      if (data.username == "") {
+      if (data.username === "") {
         setUser("User")
       } else {
         setUser(data.username)
