@@ -68,7 +68,7 @@ function Sidebar() {
         <li>
           <Link to="/create-task">New Task</Link>
         </li>
-        <li>My Tasks</li>
+        <li><Link to="/myTasks">My Tasks</Link></li>
       </ul>
       {/* Move Login to Bottom and stylize */}
       <div style={{ paddingTop: "10px" }}>

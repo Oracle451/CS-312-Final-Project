@@ -9,6 +9,24 @@ async function createUser({ username, full_name, password }) {
   return result.rows[0];
 }
 
+async function signInUser({ username, password }) {
+  try {
+    const result = await db.query("SELECT * FROM users WHERE username = $1", [
+      username,
+    ]);
+
+    if (result.rows.length > 0) {
+      if (result.rows[0].password == password) {
+        return result.rows[0];
+      }
+    }
+
+  } catch (err) {
+    throw err;
+  }
+
+}
+
 async function getUserByUsername(username) {
   const result = await db.query(
     `SELECT * FROM users WHERE username = $1`,
@@ -40,6 +58,7 @@ async function deleteUser(id) {
 
 export {
   createUser,
+  signInUser,
   getUserByUsername,
   getUserById,
   updateUser,

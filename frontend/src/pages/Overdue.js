@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardCard from "../components/DashboardCard";
 import TaskItem from "../components/TaskItem";
 import "./Overdue.css";
 
