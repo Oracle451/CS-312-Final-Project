@@ -10,6 +10,7 @@ import Signup from "./pages/Signup";
 import CreateTask from "./pages/CreateTask";
 import SearchResults from "./pages/SearchResults";
 import EditTask from "./pages/EditTask";
+import MyTasks from "./pages/myTasks";
 import "./App.css";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/tasks/:id" element={<EditTask />} />
+              <Route path="/myTasks" element={<MyTasks />} />
             </Routes>
           </div>
         </div>

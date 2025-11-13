@@ -15,7 +15,7 @@ function Sidebar() {
   }
 
   return (
-    <div className="sidebar" style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+    <div className="sidebar" style={{ display: "flex", flexDirection: "column"}}>
       {/* Search Bar */}
       <div style={{ paddingBottom: "20px" }}>
         <form onSubmit={handleSubmit} style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -68,7 +68,7 @@ function Sidebar() {
         <li>
           <Link to="/create-task">New Task</Link>
         </li>
-        <li>My Tasks</li>
+        <li><Link to="/myTasks">My Tasks</Link></li>
       </ul>
       {/* Move Login to Bottom and stylize */}
       <div style={{ paddingTop: "10px" }}>
