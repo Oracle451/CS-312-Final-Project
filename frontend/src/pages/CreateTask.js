@@ -45,7 +45,8 @@ function CreateTask() {
   return (
     <div className="create-task-container" style={{ maxWidth: 500, margin: "0 auto", padding: 32 }}>
       <h2 style={{ marginBottom: 20 }}>Create New Task</h2>
-      <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column", gap: 16}}>
+      <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column", gap: 1}}>
+        <p>Title</p>
         <input name="title"
           type="text"
           required
@@ -53,21 +54,25 @@ function CreateTask() {
           value={form.title}
           onChange={handleChange}
         />
+        <p>Description</p>
         <textarea name="description"
           placeholder="Description"
           value={form.description}
           onChange={handleChange}
         />
+        <p>Due Date</p>
         <input name="due_date"
           type="date"
           value={form.due_date}
           onChange={handleChange}
         />
+        <p>Priority</p>
         <select name="priority" value={form.priority} onChange={handleChange}>
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
           <option value="High">High</option>
         </select>
+        <p>Assigned User</p>
         <select
           name="assigned_user_id"
           value={form.assigned_user_id}

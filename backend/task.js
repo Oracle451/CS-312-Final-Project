@@ -40,57 +40,6 @@ async function getTaskById(id)
 	return result.rows[0];
 }
 
-async function getAllTasks({ status, priority, due_date, sortBy, assigned_user_id, q } = {})
-{
-	let query = `SELECT * FROM tasks`;
-	const conditions = [];
-	const values = [];
-
-	if (status)
-		{
-		values.push(status);
-		conditions.push(`status = $${values.length}`);
-	}
-
-	if (priority)
-	{
-		values.push(priority);
-		conditions.push(`priority = $${values.length}`);
-	}
-
-	if (due_date)
-	{
-		values.push(due_date);
-		conditions.push(`due_date = $${values.length}`);
-	}
-
-	if (assigned_user_id)
-	{
-		values.push(assigned_user_id);
-		conditions.push(`assigned_user_id = $${values.length}`);
-	}
-
-	if (q)
-	{
-		// case-insensitive partial match on title OR description
-		values.push(`%${q}%`);
-		conditions.push(`(title ILIKE $${values.length} OR description ILIKE $${values.length})`);
-	}
-
-	if (conditions.length > 0)
-	{
-		query += ' WHERE ' + conditions.join(' AND ');
-	}
-
-	if (sortBy && ['due_date', 'priority', 'assigned_user_id'].includes(sortBy))
-	{
-		query += ` ORDER BY ${sortBy}`;
-	}
-
-	const result = await db.query(query, values);
-	return result.rows;
-}
-
 async function updateTask(id, data) {
 	const fields = [];
 	const values = [];
@@ -146,10 +95,31 @@ async function searchTasksByTitle(queryText)
 	}
 }
 
+async function GetAllTasks() {
+  const result = await db.query(`
+    SELECT
+      id,
+      title,
+      description,
+      due_date,
+      priority,
+      status,
+      assigned_user_id,
+      created_by,
+      created_at,
+      updated_at
+    FROM tasks
+    ORDER BY created_at DESC;
+  `);
+
+  return result.rows;
+}
+
+
 export {
 	createTask,
 	getTaskById,
-	getAllTasks,
+	GetAllTasks,
 	updateTask,
 	deleteTask,
 	searchTasksByTitle,

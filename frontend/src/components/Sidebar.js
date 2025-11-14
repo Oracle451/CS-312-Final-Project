@@ -56,7 +56,7 @@ function Sidebar() {
           </Link>
         </li>
         <li>
-          <Link to="/tasks" className={location.pathname === "/tasks" ? "active" : ""}>
+          <Link to="/AllTasks" className={location.pathname === "/AllTasks" ? "active" : ""}>
             All Tasks
           </Link>
         </li>

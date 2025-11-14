@@ -11,6 +11,7 @@ import CreateTask from "./pages/CreateTask";
 import SearchResults from "./pages/SearchResults";
 import EditTask from "./pages/EditTask";
 import MyTasks from "./pages/myTasks";
+import AllTasks from "./pages/AllTasks";
 import "./App.css";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
               <Route path="/search" element={<SearchResults />} />
               <Route path="/tasks/:id" element={<EditTask />} />
               <Route path="/myTasks" element={<MyTasks />} />
+              <Route path="/AllTasks" element={<AllTasks />} />
             </Routes>
           </div>
         </div>

@@ -2,6 +2,16 @@ const express = require('express');
 const taskModel = require('./task');
 const router = express.Router();
 
+router.get("/AllTasks", async (req, res) => {
+  try {
+    const tasks = await taskModel.GetAllTasks();
+    res.json(tasks);
+  } catch (err) {
+    console.error("Error fetching tasks:", err);
+    res.status(500).json({ error: "Failed to fetch tasks" });
+  }
+});
+
 // Create task
 router.post('/', async (req, res) => {
 	try {
