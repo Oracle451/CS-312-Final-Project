@@ -28,3 +28,21 @@
   color: #38bdf8;
 }
 
+.sidebar-account-btns button{
+  width: 100%;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.sidebar-login-btn {
+  background-color: #38bdf8;
+}
+.account-btn {
+  background-color: #38bdf8;
+  display: none; /* Remove this line when implementing hide and unhide functionality to these account and login buttons */
+}

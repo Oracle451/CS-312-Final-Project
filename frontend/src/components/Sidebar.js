@@ -71,24 +71,15 @@ function Sidebar() {
         <li><Link to="/myTasks">My Tasks</Link></li>
       </ul>
       {/* Move Login to Bottom and stylize */}
-      <div style={{ paddingTop: "10px" }}>
-        <Link to="/login" style={{ width: "100%", display: "block", textDecoration: "none" }}>
-          <button
-            className="sidebar-login-btn"
-            style={{
-              width: "100%",
-              padding: "10px",
-              backgroundColor: "#38bdf8",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              fontWeight: "bold",
-              fontSize: "1em",
-              cursor: "pointer",
-              marginTop: "10px",
-            }}
-          >
+      <div className="sidebar-account-btns">
+        <Link to="/login">
+          <button className="sidebar-login-btn">
             Login
+          </button>
+        </Link>
+        <Link to="">
+          <button className="account-btn">
+            Account
           </button>
         </Link>
       </div>
