@@ -1,12 +1,18 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./DashboardCard.css";
 
-function DashboardCard({ title, value }) {
+function DashboardCard({ title, value, path }) {
+  const location = useLocation();
+
   return (
-    <div className="dashboard-card">
+    <Link
+      to={path}
+      className={`dashboard-card ${location.pathname === path ? "active" : ""}`}
+    >
       <h3>{title}</h3>
       <p>{value}</p>
-    </div>
+    </Link>
   );
 }
 

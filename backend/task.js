@@ -109,22 +109,26 @@ async function searchTasksByTitle(queryText)
 }
 
 // Function to get all tasks 
-async function GetAllTasks()
-{
+async function GetAllTasks(ordering = "created_at") {
+  // Allowed columns to prevent SQL injection
+  const allowedColumns = [
+    "title",
+    "assigned_user_id",
+    "created_by",
+    "due_date",
+    "created_at",
+    "updated_at"
+  ];
+
+  // Fallback to "created_at" if invalid
+  if (!allowedColumns.includes(ordering)) {
+    ordering = "created_at";
+  }
+
   const result = await db.query(`
-	SELECT
-	  id,
-	  title,
-	  description,
-	  due_date,
-	  priority,
-	  status,
-	  assigned_user_id,
-	  created_by,
-	  created_at,
-	  updated_at
-	FROM tasks
-	ORDER BY created_at DESC;
+    SELECT *
+    FROM tasks
+    ORDER BY ${ordering} ASC;
   `);
 
   return result.rows;
@@ -147,6 +151,53 @@ async function getOverdueTasks()
 		updated_at
 		FROM tasks
 		WHERE status = 'Overdue'
+		ORDER BY due_date ASC;
+	`);
+
+	return result.rows;
+}
+
+// Function to get completed tasks
+async function getCompletedTasks()
+{
+	const result = await db.query(`
+		SELECT
+		id,
+		title,
+		description,
+		due_date,
+		priority,
+		status,
+		assigned_user_id,
+		created_by,
+		created_at,
+		updated_at
+		FROM tasks
+		WHERE status = 'Completed'
+		ORDER BY due_date ASC;
+	`);
+
+	return result.rows;
+}
+
+// Function to get upcoming tasks
+async function getUpcomingTasks()
+{
+	const result = await db.query(`
+		SELECT
+		id,
+		title,
+		description,
+		due_date,
+		priority,
+		status,
+		assigned_user_id,
+		created_by,
+		created_at,
+		updated_at
+		FROM tasks
+		WHERE due_date >= CURRENT_DATE
+  		AND status NOT IN ('Completed', 'Overdue', 'Closed')
 		ORDER BY due_date ASC;
 	`);
 
@@ -177,5 +228,7 @@ export {
 	deleteTask,
 	searchTasksByTitle,
 	getOverdueTasks,
-	getTasksByUser
+	getTasksByUser,
+	getCompletedTasks,
+	getUpcomingTasks
 };

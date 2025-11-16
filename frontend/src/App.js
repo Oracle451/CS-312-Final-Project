@@ -13,6 +13,8 @@ import EditTask from "./pages/EditTask";
 import MyTasks from "./pages/myTasks";
 import AllTasks from "./pages/AllTasks";
 import Account from "./pages/Account";
+import Completed from "./pages/Completed";
+import Upcoming from "./pages/Upcoming";
 import "./App.css";
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
               <Route path="/myTasks" element={<MyTasks />} />
               <Route path="/AllTasks" element={<AllTasks />} />
               <Route path="/Account" element={<Account />} />
+              <Route path="/Completed" element={<Completed />} />
+              <Route path="/Upcoming" element={<Upcoming />} />
             </Routes>
           </div>
         </div>

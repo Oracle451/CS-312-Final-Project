@@ -1,0 +1,29 @@
+/* Styles For AllTasks.jsx */
+.all-tasks-page {
+  padding: 20px;
+}
+
+.sort-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sort-label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.sort-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sort-btn:hover {
+  background: #e2e2e2;
+}

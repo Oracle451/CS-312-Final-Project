@@ -3,14 +3,18 @@ const taskModel = require('./task');
 const router = express.Router();
 
 // Route to get all tasks
-router.get("/AllTasks", async (req, res) => {
-	try {
-		const tasks = await taskModel.GetAllTasks();
-		res.json(tasks);
-	} catch (err) {
-		console.error("Error fetching tasks:", err);
-		res.status(500).json({ error: "Failed to fetch tasks" });
-	}
+router.get("/AllTasks/:ordering", async (req, res) => {
+  try { 
+    // Removes the colon and gets the value (e.g. "title")
+    const ordering = req.params.ordering?.replace(":", "") || "created_at";
+
+    const tasks = await taskModel.GetAllTasks(ordering);
+    res.json(tasks);
+
+  } catch (err) {
+    console.error("Error fetching tasks:", err);
+    res.status(500).json({ error: "Failed to fetch tasks" });
+  }
 });
 
 // Route to get overdue tasks
@@ -21,6 +25,28 @@ router.get("/overdue", async (req, res) => {
 	} catch (err) {
 		console.error("Error fetching overdue tasks:", err);
 		res.status(500).json({ error: "Failed to fetch overdue tasks" });
+	}
+});
+
+// Route to get completed tasks
+router.get("/completed", async (req, res) => {
+	try {
+		const tasks = await taskModel.getCompletedTasks();
+		res.json(tasks);
+	} catch (err) {
+		console.error("Error fetching completed tasks:", err);
+		res.status(500).json({ error: "Failed to fetch completed tasks" });
+	}
+});
+
+// Route to get upcoming tasks
+router.get("/upcoming", async (req, res) => {
+	try {
+		const tasks = await taskModel.getUpcomingTasks();
+		res.json(tasks);
+	} catch (err) {
+		console.error("Error fetching upcoming tasks:", err);
+		res.status(500).json({ error: "Failed to fetch upcoming tasks" });
 	}
 });
 
