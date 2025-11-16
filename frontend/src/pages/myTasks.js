@@ -1,18 +1,17 @@
 import React from "react";
-import TaskItem from "../components/TaskItem";
-import "./Overdue.css";
+import TaskList from "./TaskList";
 
-function myTasks() {
+export default function GetMyTasks() {
+  // Get user ID from login (stored in localStorage after signin)
+  const user = localStorage.getItem("username");
 
-	let placeHolder = 30
-
-	return (
-		<div className="main">
-			<h2>My Tasks: {placeHolder}</h2>
-			<p>All of My Tasks:</p>
-			<TaskItem />
-		</div>
-	);
+  return (
+    <div className="main">
+      <TaskList
+        title="My Tasks"
+		// passes userId into backend query
+        fetchUrl={`/api/tasks/myTasks/${user}`}
+      />
+    </div>
+  );
 }
-
-export default myTasks;

@@ -2,14 +2,37 @@ const express = require('express');
 const taskModel = require('./task');
 const router = express.Router();
 
+// Route to get all tasks
 router.get("/AllTasks", async (req, res) => {
-  try {
-    const tasks = await taskModel.GetAllTasks();
-    res.json(tasks);
-  } catch (err) {
-    console.error("Error fetching tasks:", err);
-    res.status(500).json({ error: "Failed to fetch tasks" });
-  }
+	try {
+		const tasks = await taskModel.GetAllTasks();
+		res.json(tasks);
+	} catch (err) {
+		console.error("Error fetching tasks:", err);
+		res.status(500).json({ error: "Failed to fetch tasks" });
+	}
+});
+
+// Route to get overdue tasks
+router.get("/overdue", async (req, res) => {
+	try {
+		const tasks = await taskModel.getOverdueTasks();
+		res.json(tasks);
+	} catch (err) {
+		console.error("Error fetching overdue tasks:", err);
+		res.status(500).json({ error: "Failed to fetch overdue tasks" });
+	}
+});
+
+// Route to search tasks by name
+router.get('/search', async (req, res) => {
+	const q = req.query.q;
+	try {
+		const results = await taskModel.searchTasksByTitle(q);
+		res.json(results);
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
 });
 
 // Create task
@@ -22,34 +45,8 @@ router.post('/', async (req, res) => {
 	}
 });
 
-router.get('/search', async (req, res) => {
-	const q = req.query.q;
-	try {
-		const results = await taskModel.searchTasksByTitle(q);
-		res.json(results);
-	} catch (err) {
-		res.status(500).json({ error: err.message });
-	}
-});
-
-// Get all/filter/search tasks
-router.get('/', async (req, res) => {
-	try {
-		const tasks = await taskModel.getAllTasks(req.query);
-		res.json(tasks);
-	} catch (err) {
-		res.status(400).json({ error: err.message });
-	}
-});
-
-// Get single task
-router.get('/:id', async (req, res) => {
-	const task = await taskModel.getTaskById(req.params.id);
-	task ? res.json(task) : res.status(404).json({ error: 'Task not found' });
-});
-
 // Update task
-router.put('/:id', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
 	try {
 		const task = await taskModel.updateTask(req.params.id, req.body);
 		res.json(task);
@@ -59,9 +56,28 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete task
-router.delete('/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
 	await taskModel.deleteTask(req.params.id);
 	res.status(204).end();
+});
+
+// Route to get user tasks 
+router.get("/myTasks/:username", async (req, res) => {
+	const username = req.params.username;
+
+	try {
+		const tasks = await taskModel.getTasksByUser(username);
+		res.json(tasks);
+	} catch (err) {
+		console.error("Error fetching user's tasks:", err);
+		res.status(500).json({ error: "Failed to fetch tasks" });
+	}
+});
+
+// Get single task
+router.get('/:id', async (req, res) => {
+	const task = await taskModel.getTaskById(req.params.id);
+	task ? res.json(task) : res.status(404).json({ error: 'Task not found' });
 });
 
 module.exports = router;

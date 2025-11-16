@@ -34,6 +34,8 @@ function Login() {
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem("user_id", data.id);
+        localStorage.setItem("username", data.username);
         alert("Logged In!");
         navigate("/");
       } else {

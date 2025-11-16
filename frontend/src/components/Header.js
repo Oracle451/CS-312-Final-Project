@@ -32,7 +32,7 @@ function Header({ title }) {
     } catch (err) {
       console.error(err);
     }
-  };
+};
 
   return (
     <header className="header">

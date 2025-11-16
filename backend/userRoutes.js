@@ -14,17 +14,50 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/getCurrentUser', async (req, res) => {
-  res.json(currentUser);
+	res.json(currentUser);
 })
 
 // Sign User in
 router.post('/signin', async (req, res) => {
+	try {
+		const user = await userModel.signInUser(req.body);
+		currentUser = user;
+		res.status(202).json(user);
+	} catch (err) {
+		res.status(401).json({ error: err.message });
+	}
+});
+
+// Update user
+router.put("/update/:username", async (req, res) => {
+  const username = req.params.username;
+  const { username: newUsername, full_name, password } = req.body;
+
   try {
-    const user = await userModel.signInUser(req.body);
-    currentUser = user;
-    res.status(202).json(user);
+    const updated = await userModel.updateUser(
+      username,
+      newUsername,
+      full_name,
+      password
+    );
+
+    res.json({ message: "User updated", user: updated });
   } catch (err) {
-    res.status(401).json({ error: err.message });
+    console.error("Error updating user:", err);
+    res.status(500).json({ error: "Failed to update user" });
+  }
+});
+
+// Delete user
+router.delete("/delete/:username", async (req, res) => {
+  const username = req.params.username;
+
+  try {
+    await userModel.deleteUser(username);
+    res.json({ message: "User deleted" });
+  } catch (err) {
+    console.error("Error deleting user:", err);
+    res.status(500).json({ error: "Failed to delete user" });
   }
 });
 
@@ -40,20 +73,5 @@ router.get('/:id', async (req, res) => {
 	user ? res.json(user) : res.status(404).json({ error: 'User not found' });
 });
 
-// Update user
-router.put('/:id', async (req, res) => {
-	try {
-		const user = await userModel.updateUser(req.params.id, req.body);
-		res.json(user);
-	} catch (err) {
-		res.status(400).json({ error: err.message });
-	}
-});
-
-// Delete user
-router.delete('/:id', async (req, res) => {
-	await userModel.deleteUser(req.params.id);
-	res.status(204).end();
-});
 
 module.exports = router;
