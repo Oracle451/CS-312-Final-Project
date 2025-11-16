@@ -4,17 +4,47 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   padding: 20px;
   width: 200px;
+  height:100px;
   text-align: center;
   text-decoration: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .dashboard-card h3 {
   font-size: 1.1em;
   color: #64748b;
+  width: 100%;
 }
 
 .dashboard-card p {
   font-size: 2em;
   color: #1e293b;
   margin: 10px 0 0;
+  width: 100%;
+}
+
+.stat-card {
+  margin: 10px 0 0;
+  height: 2em;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.stat-bar {
+  height: 100%;
+}
+
+.stat-bar-complete {
+  background-color: rgb(0, 255, 0);
+}
+
+.stat-bar-in-progress {
+  background-color: rgb(202, 202, 202);
+}
+
+.stat-bar-overdue {
+  background-color: yellow;
 }

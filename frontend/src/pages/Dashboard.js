@@ -30,10 +30,11 @@ function Dashboard() {
 
   return (
     <div className="dashboard-cards">
-      <DashboardCard title="Total Tasks" value={counts.total} path="/AllTasks" />
-      <DashboardCard title="Completed" value={counts.completed} path="/Completed" />
-      <DashboardCard title="Overdue" value={counts.overdue} path="/Overdue" />
-      <DashboardCard title="Upcoming" value={counts.upcoming} path="/Upcoming" />
+      <DashboardCard title="Total Tasks" type="text" value={String(counts.total)} path="/AllTasks" />
+      <DashboardCard title="Completed" type="text" value={String(counts.completed)} path="/Completed" />
+      <DashboardCard title="Overdue" type="text" value={String(counts.overdue)} path="/Overdue" />
+      <DashboardCard title="Upcoming" type="text" value={String(counts.upcoming)} path="/Upcoming" />
+      <DashboardCard title="Statistics" type="display" value={counts}/>
     </div>
   );
 }
