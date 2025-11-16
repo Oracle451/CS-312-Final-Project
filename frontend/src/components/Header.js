@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Header.css";
 
 function Header({ title }) {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState("User");
 
   useEffect(() => {
     fetchData();
@@ -19,7 +19,7 @@ function Header({ title }) {
 
       const data = await response.json();
       console.log("I grabbed: ", data);
-      if (data.username === "") {
+      if (data.username === "" || data.username === undefined) {
         setUser("User")
       } else {
         setUser(data.username)

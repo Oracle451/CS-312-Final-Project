@@ -13,12 +13,10 @@ function Login() {
   const [error, setError] = useState("");
 
   const handleSignupClick = (e) => {
-    e.preventDefault();
     navigate("/signup");
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     setError("");
 
     try {
