@@ -62,4 +62,5 @@ export {
 	getUserById,
 	updateUser,
 	deleteUser,
+	signInUser
 };
