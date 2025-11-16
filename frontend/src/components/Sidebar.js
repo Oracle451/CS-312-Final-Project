@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
@@ -6,12 +6,42 @@ function Sidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [acctBtnVis, setAcctBtnVis] = useState(false);
+  const [sInBtnVis, setSInBtnVis] = useState(true);
 
   function handleSubmit(e) {
     e.preventDefault();
     const q = query.trim();
     if (!q) return;
     navigate(`/search?q=${encodeURIComponent(q)}`);
+  }
+
+  useEffect(() => {
+      changeAccountButtons();
+    }, []);
+
+  async function changeAccountButtons() {
+    try {
+      const response = await fetch("/api/users/getCurrentUser", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      console.log("I grabbed: ", data);
+      if (data.username === "" || data.username === undefined) {
+        setAcctBtnVis(false);
+        setSInBtnVis(true);
+      } else {
+        setAcctBtnVis(true);
+        setSInBtnVis(false);
+      }
+
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -73,12 +103,12 @@ function Sidebar() {
       {/* Move Login to Bottom and stylize */}
       <div className="sidebar-account-btns">
         <Link to="/login">
-          <button className="sidebar-login-btn">
+          <button className="sidebar-login-btn" style={{ display: sInBtnVis ? "block" : "none" }}>
             Login
           </button>
         </Link>
-        <Link to="">
-          <button className="account-btn">
+        <Link to="/account">
+          <button className="account-btn" style={{ display: acctBtnVis ? "block" : "none" }}>
             Account
           </button>
         </Link>
