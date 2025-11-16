@@ -38,11 +38,6 @@ function TaskList({ title, fetchUrl }) {
                 <TaskItem
                   key={t.id}
                   id={t.id}
-                  title={t.title}
-                  owner={t.assigned_user_id || "Unassigned"}
-                  date={
-                    t.due_date ? new Date(t.due_date).toLocaleString() : "N/A"
-                  }
                 />
               ))}
             </div>
