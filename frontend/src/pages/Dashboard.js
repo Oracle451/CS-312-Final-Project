@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DashboardCard from "../components/DashboardCard";
-import "./Dashboard.css";
+import "./styles.css";
 
 function Dashboard() {
   const [counts, setCounts] = useState({

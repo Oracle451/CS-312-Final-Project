@@ -24,7 +24,7 @@ function TaskList({ title, fetchUrl }) {
 
   return (
     <div style={{ padding: 16 }}>
-      <h2>{title}</h2>
+      <h2>{title}: {tasks.length}</h2>
       {loading && <p>Loading…</p>}
       {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
