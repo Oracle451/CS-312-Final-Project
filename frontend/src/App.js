@@ -18,33 +18,33 @@ import Upcoming from "./pages/Upcoming";
 import "./App.css";
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        <Header title="Task Manager" />
-        <div className="main-layout">
-          <Sidebar />
-          <div className="content">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/tasks" element={<Tasks />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/overdue" element={<Overdue />} />
-              <Route path="/create-task" element={<CreateTask />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/search" element={<SearchResults />} />
-              <Route path="/tasks/:id" element={<EditTask />} />
-              <Route path="/myTasks" element={<MyTasks />} />
-              <Route path="/AllTasks" element={<AllTasks />} />
-              <Route path="/Account" element={<Account />} />
-              <Route path="/Completed" element={<Completed />} />
-              <Route path="/Upcoming" element={<Upcoming />} />
-            </Routes>
-          </div>
-        </div>
-      </div>
-    </Router>
-  );
+	return (
+		<Router>
+			<div className="App">
+				<Header title="Task Manager" />
+				<div className="main-layout">
+					<Sidebar />
+					<div className="content">
+						<Routes>
+							<Route path="/" element={<Dashboard />} />
+							<Route path="/tasks" element={<Tasks />} />
+							<Route path="/login" element={<Login />} />
+							<Route path="/overdue" element={<Overdue />} />
+							<Route path="/create-task" element={<CreateTask />} />
+							<Route path="/signup" element={<Signup />} />
+							<Route path="/search" element={<SearchResults />} />
+							<Route path="/tasks/:id" element={<EditTask />} />
+							<Route path="/myTasks" element={<MyTasks />} />
+							<Route path="/AllTasks" element={<AllTasks />} />
+							<Route path="/Account" element={<Account />} />
+							<Route path="/Completed" element={<Completed />} />
+							<Route path="/Upcoming" element={<Upcoming />} />
+						</Routes>
+					</div>
+				</div>
+			</div>
+		</Router>
+	);
 }
 
 export default App;

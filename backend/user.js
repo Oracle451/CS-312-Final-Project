@@ -56,42 +56,45 @@ async function getUserById(id)
 
 // Function to update a user
 async function updateUser(oldUsername, newUsername, full_name, password) {
-  let query, params;
+	let query, params;
+	
+	if (password)
+	{
+		// Update everything including password
+		query = `
+	  		UPDATE users
+	  		SET username = $1,
+		  	full_name = $2,
+		  	password = $3,
+	  		WHERE username = $4
+	  		RETURNING id, username, full_name;
+		`;
+		params = [newUsername, full_name, password, oldUsername];
+  	}
+	else
+	{
+		// Update without password
+		query = `
+	  		UPDATE users
+	  		SET username = $1,
+		  	full_name = $2
+	  		WHERE username = $3
+	  		RETURNING id, username, full_name;
+		`;
+		params = [newUsername, full_name, oldUsername];
+  	}
 
-  if (password) {
-    // Update everything including password
-    query = `
-      UPDATE users
-      SET username = $1,
-          full_name = $2,
-          password = crypt($3, gen_salt('bf'))
-      WHERE username = $4
-      RETURNING id, username, full_name;
-    `;
-    params = [newUsername, full_name, password, oldUsername];
-  } else {
-    // Update without password
-    query = `
-      UPDATE users
-      SET username = $1,
-          full_name = $2
-      WHERE username = $3
-      RETURNING id, username, full_name;
-    `;
-    params = [newUsername, full_name, oldUsername];
-  }
-
-  const result = await db.query(query, params);
-  return result.rows[0];
+  	const result = await db.query(query, params);
+  	return result.rows[0];
 }
 
 
 // Function to delete a user
 async function deleteUser(username) {
-  await db.query(
-    `DELETE FROM users WHERE username = $1`,
-    [username]
-  );
+  	await db.query(
+		`DELETE FROM users WHERE username = $1`,
+		[username]
+  	);
 }
 
 export {

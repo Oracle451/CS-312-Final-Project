@@ -110,28 +110,28 @@ async function searchTasksByTitle(queryText)
 
 // Function to get all tasks 
 async function GetAllTasks(ordering = "created_at") {
-  // Allowed columns to prevent SQL injection
-  const allowedColumns = [
-    "title",
-    "assigned_user_id",
-    "created_by",
-    "due_date",
-    "created_at",
-    "updated_at"
-  ];
+	// Allowed columns to prevent SQL injection
+  	const allowedColumns = [
+		"title",
+		"assigned_user_id",
+		"created_by",
+		"due_date",
+		"created_at",
+		"updated_at"
+  	];
 
-  // Fallback to "created_at" if invalid
-  if (!allowedColumns.includes(ordering)) {
-    ordering = "created_at";
-  }
+  	// Fallback to "created_at" if invalid
+  	if (!allowedColumns.includes(ordering)) {
+		ordering = "created_at";
+  	}
 
-  const result = await db.query(`
-    SELECT *
-    FROM tasks
-    ORDER BY ${ordering} ASC;
-  `);
+  	const result = await db.query(`
+		SELECT *
+		FROM tasks
+		ORDER BY ${ordering} ASC;
+  	`);
 
-  return result.rows;
+  	return result.rows;
 }
 
 // Function to get overdue tasks
