@@ -16,7 +16,7 @@ function TaskItem({ id }) {
         setTask(data);
 
         if (data.assigned_user_id) {
-          const userRes = await fetch(`/api/user/${data.assigned_user_id}`);
+          const userRes = await fetch(`/api/users/${data.assigned_user_id}`);
           const userData = await userRes.json();
           setAssignedUser(userData.username);
         }
@@ -43,7 +43,7 @@ function TaskItem({ id }) {
       <p className="taskName">{task.title}</p>
 
       <p className="owner">
-        Assigned User: {assignedUser ? assignedUser.name : "Unassigned"}
+        Assigned User: {assignedUser ? assignedUser : "Unassigned"}
       </p>
 
       <p className="creator">Creator ID: {task.created_by}</p>
