@@ -13,10 +13,12 @@ function Login() {
   const [error, setError] = useState("");
 
   const handleSignupClick = (e) => {
+    e.preventDefault();
     navigate("/signup");
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     setError("");
 
     try {
@@ -32,10 +34,9 @@ function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("user_id", data.id);
-        localStorage.setItem("username", data.username);
         alert("Logged In!");
         navigate("/");
+        window.location.reload();
       } else {
         setError(data.error || "Login failed");
       }

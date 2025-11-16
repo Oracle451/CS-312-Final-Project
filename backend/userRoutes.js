@@ -28,6 +28,16 @@ router.post('/signin', async (req, res) => {
 	}
 });
 
+// Sign out user
+router.post('/signout', async (req, res) => {
+  try {
+		currentUser = "";
+		res.status(200).json({ message: "Signed out successfully" });
+	} catch (err) {
+		res.status(401).json({ error: err.message });
+	}
+});
+
 // Update user
 router.put("/update/:username", async (req, res) => {
   const username = req.params.username;
@@ -51,6 +61,7 @@ router.put("/update/:username", async (req, res) => {
 // Delete user
 router.delete("/delete/:username", async (req, res) => {
   const username = req.params.username;
+  currentUser = "";
 
   try {
     await userModel.deleteUser(username);
