@@ -31,12 +31,19 @@ router.post('/signin', async (req, res) => {
 // Sign out user
 router.post('/signout', async (req, res) => {
   try {
-		currentUser = "";
-		res.status(200).json({ message: "Signed out successfully" });
-	} catch (err) {
-		res.status(401).json({ error: err.message });
-	}
+    currentUser = "";
+    res.status(202).json({ message: "Signed out" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
+
+// Get all users
+router.get('/allUsers', async (req, res) => {
+	const user = await userModel.getAllUsers(req.params.id);
+	user ? res.json(user) : res.status(404).json({ error: 'error getting users' });
+});
+
 
 // Update user
 router.put("/update/:username", async (req, res) => {

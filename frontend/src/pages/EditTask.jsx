@@ -20,7 +20,7 @@ function EditTask()
 
   	// Load users for dropdown
   	useEffect(() => {
-		fetch("/api/users")
+		fetch("/api/users/allUsers")
 	  	.then(res => res.json())
 	  	.then(setUsers)
 	  	.catch(console.error);
@@ -93,12 +93,12 @@ function EditTask()
 	  		<h2>Edit Task: {task.title}</h2>
 
 	  		<div
-				style={{
-				display: "flex",
-				flexDirection: "column",
-				gap: 12,
-				maxWidth: 500,
-				}}
+			style={{
+			display: "flex",
+			flexDirection: "column",
+			gap: 12,
+			maxWidth: 500,
+			}}
 			>
 				<label>
 				Title

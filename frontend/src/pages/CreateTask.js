@@ -14,13 +14,13 @@ function CreateTask()
   	});
   	const [success, setSuccess] = useState(false);
 
-  	// Fetch users for the assignment dropdown
-  	useEffect(() => {
-		fetch("/api/users")
-	  		.then(res => res.json())
-	  		.then(data => setUsers(data))
-	  		.catch(console.error);
-  	}, []);
+  	// Load users for dropdown
+	useEffect(() => {
+		fetch("/api/users/allUsers")
+			.then(res => res.json())
+			.then(setUsers)
+			.catch(console.error);
+	}, []);
 
   	function handleChange(e) {
 		setForm({ ...form, [e.target.name]: e.target.value });

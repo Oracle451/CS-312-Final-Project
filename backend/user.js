@@ -44,6 +44,13 @@ async function getUserByUsername(username)
 	return result.rows[0];
 }
 
+// Function to get all users
+async function getAllUsers() {
+  const result = await db.query(`SELECT * FROM users`);
+  return result.rows;   // return ALL users
+}
+
+
 // Function to get a user by their id
 async function getUserById(id)
 {
@@ -103,5 +110,6 @@ export {
 	getUserById,
 	updateUser,
 	deleteUser,
-	signInUser
+	signInUser,
+	getAllUsers
 };
