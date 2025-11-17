@@ -53,7 +53,7 @@ function EditTask()
 	  		const payload = {
 				...task,
 				assigned_user_id:
-				task.assigned_user_id === "" ? null : Number(task.assigned_user_id),
+				task.assigned_user_id == null ? null : Number(task.assigned_user_id),
 			};
 
 			const res = await fetch(`/api/tasks/update/${id}`, {

@@ -33,7 +33,7 @@ export default function Account()
 
   	// Fetch account details once username is available
   	useEffect(() => {
-		if (username == "User") return;
+		if (username == "User" || username == null || username == "") return;
 
 		fetch(`/api/users/username/${username}`)
 	  		.then((res) => res.json())

@@ -40,7 +40,7 @@ router.post('/signout', async (req, res) => {
 
 // Get all users
 router.get('/allUsers', async (req, res) => {
-	const user = await userModel.getAllUsers(req.params.id);
+	const user = await userModel.getAllUsers();
 	user ? res.json(user) : res.status(404).json({ error: 'error getting users' });
 });
 
