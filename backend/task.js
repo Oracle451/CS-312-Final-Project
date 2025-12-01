@@ -32,26 +32,26 @@ async function createTask(data) {
 
 // Function to update a task with new information
 async function updateTask(id, data) {
-	const fields = [];
-	const values = [];
-	let idx = 1;
+	const
+		{
+			title,
+			description,
+			due_date,
+			priority,
+			status,
+			assigned_user_id,
+			created_by
+		} = data;
 
-	for (const key of ['title', 'description', 'due_date', 'priority', 'status', 'assigned_user_id', 'created_by']) {
-		if (data[key] !== undefined) {
-			fields.push(`${key} = $${idx}`);
-			values.push(data[key]);
-			idx++;
-		}
-	}
-
-	if (fields.length === 0) return getTaskById(id);
-
-	values.push(id);
-
+	let date = new Date();
+	// Query the database to add a task to the database
 	const result = await db.query(
-		`UPDATE tasks SET ${fields.join(', ')} WHERE id = $${values.length} RETURNING *`,
-		values
+		`UPDATE tasks SET title = $1, description = $2, due_date = $3,
+		 priority = $4, status = $5, assigned_user_id = $6, created_by = $7, updated_at = $8
+		 WHERE id = $9`,
+		[title, description, due_date, priority, status, assigned_user_id, created_by, date, id]
 	);
+
 
 	return result.rows[0];
 }
