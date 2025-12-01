@@ -1,54 +1,46 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
 
-function Header({ title })
-{
+function Header({ title }) {
 	const [user, setUser] = useState("User");
 
-  	useEffect(() => {
+	useEffect(() => {
 		fetchData();
-  	}, []);
+	}, []);
 
-  	const fetchData = async () => {
+	const fetchData = async () => {
 		try {
-	  		const response = await fetch("/api/users/getCurrentUser", {
+			const response = await fetch("/api/users/getCurrentUser", {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
 				},
 			});
 
-	  	const data = await response.json();
-	  	console.log("I grabbed: ", data);
-	  	if (data.username === "" || data.username === undefined)
-		{
-			setUser("User")
-	  	}
-		else
-		{
-			setUser(data.username)
-	  	}
+			const data = await response.json();
+			if (data.username === "" || data.username === undefined) {
+				setUser("User")
+			}
+			else {
+				setUser(data.username)
+			}
 
-	  	if (response.ok)
-		{
-			console.log("Grabbed Okay")
-	  	}
 
-	} catch (err) {
-	  	console.error(err);
-	}
-};
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
-  	return (
+	return (
 		<header className="header">
-	  		<div className="header-title">
+			<div className="header-title">
 				<h1>{title}</h1>
-	  		</div>
-	  		<div className="header-user">
+			</div>
+			<div className="header-user">
 				<span>Welcome, {user}</span>
-	  		</div>
+			</div>
 		</header>
-  	);
+	);
 }
 
 export default Header;

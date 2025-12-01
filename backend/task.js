@@ -5,19 +5,18 @@ import db from './db.js';
 //------------------------------------------
 
 // Function to create a new task
-async function createTask(data)
-{
+async function createTask(data) {
 	// Create a constant to hold the task information
 	const
-	{
-		title,
-		description,
-		due_date,
-		priority,
-		status,
-		assigned_user_id,
-		created_by
-	} = data;
+		{
+			title,
+			description,
+			due_date,
+			priority,
+			status,
+			assigned_user_id,
+			created_by
+		} = data;
 
 	// Query the database to add a task to the database
 	const result = await db.query(
@@ -32,16 +31,13 @@ async function createTask(data)
 }
 
 // Function to update a task with new information
-async function updateTask(id, data)
-{
+async function updateTask(id, data) {
 	const fields = [];
 	const values = [];
 	let idx = 1;
 
-	for (const key of ['title', 'description', 'due_date', 'priority', 'status', 'assigned_user_id', 'created_by'])
-	{
-		if (data[key] !== undefined)
-		{
+	for (const key of ['title', 'description', 'due_date', 'priority', 'status', 'assigned_user_id', 'created_by']) {
+		if (data[key] !== undefined) {
 			fields.push(`${key} = $${idx}`);
 			values.push(data[key]);
 			idx++;
@@ -61,8 +57,7 @@ async function updateTask(id, data)
 }
 
 // Function to delete a task
-async function deleteTask(id)
-{
+async function deleteTask(id) {
 	const result = await db.query(
 		`DELETE FROM tasks WHERE id = $1 RETURNING *`,
 		[id]
@@ -76,8 +71,7 @@ async function deleteTask(id)
 //------------------------------------------
 
 // Function to get a task by its id
-async function getTaskById(id)
-{
+async function getTaskById(id) {
 	// Query the database for a task with the given id
 	const result = await db.query(
 		`SELECT * FROM tasks WHERE id = $1`,
@@ -89,8 +83,7 @@ async function getTaskById(id)
 }
 
 // Function to search tasks by title
-async function searchTasksByTitle(queryText)
-{
+async function searchTasksByTitle(queryText) {
 	if (!queryText || queryText.trim() === "") return [];
 
 	try {
@@ -111,32 +104,31 @@ async function searchTasksByTitle(queryText)
 // Function to get all tasks 
 async function GetAllTasks(ordering = "created_at") {
 	// Allowed columns to prevent SQL injection
-  	const allowedColumns = [
+	const allowedColumns = [
 		"title",
 		"assigned_user_id",
 		"created_by",
 		"due_date",
 		"created_at",
 		"updated_at"
-  	];
+	];
 
-  	// Fallback to "created_at" if invalid
-  	if (!allowedColumns.includes(ordering)) {
+	// Fallback to "created_at" if invalid
+	if (!allowedColumns.includes(ordering)) {
 		ordering = "created_at";
-  	}
+	}
 
-  	const result = await db.query(`
+	const result = await db.query(`
 		SELECT *
 		FROM tasks
 		ORDER BY ${ordering} ASC;
   	`);
 
-  	return result.rows;
+	return result.rows;
 }
 
 // Function to get overdue tasks
-async function getOverdueTasks()
-{
+async function getOverdueTasks() {
 	const result = await db.query(`
 		SELECT
 		id,
@@ -158,8 +150,7 @@ async function getOverdueTasks()
 }
 
 // Function to get completed tasks
-async function getCompletedTasks()
-{
+async function getCompletedTasks() {
 	const result = await db.query(`
 		SELECT
 		id,
@@ -181,8 +172,7 @@ async function getCompletedTasks()
 }
 
 // Function to get upcoming tasks
-async function getUpcomingTasks()
-{
+async function getUpcomingTasks() {
 	const result = await db.query(`
 		SELECT
 		id,
@@ -205,14 +195,10 @@ async function getUpcomingTasks()
 }
 
 // Get tasks assigned to a specific user
-async function getTasksByUser(username)
-{
+async function getTasksByUser(username) {
 	const query = `
-		SELECT tasks.*
-		FROM tasks
-		JOIN users ON tasks.assigned_user_id = users.id
-		WHERE users.username = $1
-		ORDER BY tasks.due_date ASC;
+		SELECT * FROM tasks
+		WHERE assigned_user_id = $1;
 	`;
 
 	const result = await db.query(query, [username]);

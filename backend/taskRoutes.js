@@ -4,17 +4,17 @@ const router = express.Router();
 
 // Route to get all tasks
 router.get("/AllTasks/:ordering", async (req, res) => {
-  try { 
-    // Removes the colon and gets the value (e.g. "title")
-    const ordering = req.params.ordering?.replace(":", "") || "created_at";
+	try {
+		// Removes the colon and gets the value (e.g. "title")
+		const ordering = req.params.ordering?.replace(":", "") || "created_at";
 
-    const tasks = await taskModel.GetAllTasks(ordering);
-    res.json(tasks);
+		const tasks = await taskModel.GetAllTasks(ordering);
+		res.json(tasks);
 
-  } catch (err) {
-    console.error("Error fetching tasks:", err);
-    res.status(500).json({ error: "Failed to fetch tasks" });
-  }
+	} catch (err) {
+		console.error("Error fetching tasks:", err);
+		res.status(500).json({ error: "Failed to fetch tasks" });
+	}
 });
 
 // Route to get overdue tasks
