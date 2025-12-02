@@ -72,7 +72,7 @@ async function updateUser(oldUsername, newUsername, full_name, password) {
 	  		UPDATE users
 	  		SET username = $1,
 		  	full_name = $2,
-		  	password = $3,
+		  	password = $3
 	  		WHERE username = $4
 	  		RETURNING id, username, full_name;
 		`;
