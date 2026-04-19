@@ -51,36 +51,36 @@ function Login()
 		}
   	};
 
-  return (
-	<div className="login-container">
-	  <h2>Login</h2>
-	  <form onSubmit={handleSubmit}>
-		<input
-		  type="text"
-		  placeholder="Username"
-		  value={form.username}
-		  onChange={(e) => setForm({ ...form, username: e.target.value })}
-		  required
+  	return (
+		<div className="login-container">
+			<h2>Login</h2>
+			<form onSubmit={handleSubmit}>
+				<input
+				type="text"
+				placeholder="Username"
+				value={form.username}
+				onChange={(e) => setForm({ ...form, username: e.target.value })}
+				required
 
-		/>
-		<input
-		  type="password"
-		  placeholder="Password"
-		  required
-		  value={form.password}
-		  onChange={(e) => setForm({ ...form, password: e.target.value })}
-		/>
-		<button type="submit">Login</button>
-	  </form>
-	  <div style={{ marginTop: "16px" }}>
-		<button type="button" onClick={handleSignupClick} style={{ background: "none", color: "#38bdf8", border: "none", cursor: "pointer" }}>
-		  Don't have an account? Signup
-		</button>
-	  </div>
+				/>
+				<input
+				type="password"
+				placeholder="Password"
+				required
+				value={form.password}
+				onChange={(e) => setForm({ ...form, password: e.target.value })}
+				/>
+				<button type="submit">Login</button>
+			</form>
+			<div style={{ marginTop: "16px" }}>
+				<button type="button" onClick={handleSignupClick} style={{ background: "none", color: "#38bdf8", border: "none", cursor: "pointer" }}>
+				Don't have an account? Signup
+				</button>
+			</div>
 
-	  {error && <div style={{ color: "red", marginTop: 12 }}>{error}</div>}
-	</div>
-  );
+			{error && <div style={{ color: "red", marginTop: 12 }}>{error}</div>}
+		</div>
+	);
 }
 
 export default Login;
